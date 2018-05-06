@@ -10,6 +10,8 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             if (val > 9) {
                 spill = 1;
                 val = val - 10;
+            }else{
+                spill=0;
             }
             //创建节点
             ListNode node = new ListNode(val);
@@ -22,4 +24,24 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             return processSingleListNode(l2,spill);
         }
     }
+    
+     public ListNode processSingleListNode(ListNode node,int spill){
+        if(node!=null) {
+            int val = node.val + spill;
+            if (val > 9) {
+                val = val - 10;
+                spill = 1;
+            }else{
+                spill=0;
+            }
+            //创建节点
+            ListNode newNode = new ListNode(val);
+            newNode.next = processSingleListNode(node.next, spill);
+            return newNode;
+        }else if(spill==1){
+            return  new ListNode(1);
+        }else{
+            return null;
+        }
+    }  
 }
