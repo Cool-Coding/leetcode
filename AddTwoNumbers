@@ -1,0 +1,53 @@
+public class AddTwoNumbers{
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int num1=getNum(l1);
+        int num2=getNum(l2);
+        int num=num1+num2;
+        return getNode(num);
+    }
+
+    public int getNum(ListNode node){
+        List<String> num=new ArrayList<>();
+        while(node!=null) {
+            num.add(String.valueOf(node.val));
+            node = node.next;
+        }
+        Collections.reverse(num);
+        final String num_str = join(num, "");
+        return Integer.valueOf(num_str);
+    }
+
+    public ListNode getNode(int num){
+        String num_str=String.valueOf(num);
+        List<Character> list=new ArrayList<>();
+
+        int len=num_str.length();
+        for(int i=0;i<len;i++){
+            list.add(num_str.charAt(i));
+        }
+        Collections.reverse(list);
+        final Iterator<Character> iterator = list.iterator();
+        return getNextNode(iterator);
+    }
+
+    public ListNode getNextNode(Iterator<Character> iterator){
+        if(iterator.hasNext()){
+            ListNode node=new ListNode(Integer.valueOf(iterator.next().toString()));
+            node.next=getNextNode(iterator);
+            return node;
+        }else{
+            return null;
+        }
+    }
+
+    public static String join(Collection var0, String var1) {
+        StringBuffer var2 = new StringBuffer();
+
+        for(Iterator var3 = var0.iterator(); var3.hasNext(); var2.append((String)var3.next())) {
+            if (var2.length() != 0) {
+                var2.append(var1);
+            }
+        }
+        return var2.toString();
+    }
+}
